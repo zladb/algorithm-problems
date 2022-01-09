@@ -1,0 +1,10 @@
+# 10430
+input_ = input()
+sep = input_.split(' ')
+A = int(sep[0])
+B = int(sep[1])
+C = int(sep[2])
+print((A+B) % C)
+print(((A % C) + (B % C)) % C)
+print((A*B) % C)
+print(((A % C)*(B % C)) % C)
