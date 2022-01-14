@@ -1,4 +1,4 @@
-# 15649 N과 M (2)
+# 15650 N과 M (2)
 
 def dfs():
     if len(sol) == M:
