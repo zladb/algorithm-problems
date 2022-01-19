@@ -13,10 +13,9 @@ def dfs(row):
         global count
         count += 1
     else:
-
         for col in range(1, N+1):   # 1 ~ N
             if row == 0:
-                if N % 2 == 0 and row > N//2:
+                if N % 2 == 0 and col > N // 2:
                     break
                 sol[row + 1] = col
                 dfs(row + 1)
