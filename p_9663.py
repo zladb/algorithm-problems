@@ -1,38 +1,39 @@
 # 9663 - N-Queen
 
-def is_promising(row, col, sol):
+def is_promising(sol, row, col):
 
-    for step in range(1, row):
-        if row-step > 0:
-            if 0 < col-step:
-                if sol[row-step][col-step] == 1:
-                    return False
-            if sol[row-step][col] == 1:
-                return False
-            if col+step < N:
-                if sol[row-step][col+step] == 1:
-                    return False
-
+    for index in range(1, row):
+        if sol[index] == col or abs(index - row) == abs(sol[index] - col):
+            return False
     return True
 
 
-def dfs(i):
-    if i == N-1:
+def dfs(row):
+    if row == N:
         global count
         count += 1
-        return 0
     else:
-        for j in range(1, N):
-            if is_promising(i+1, j, sol):
-                sol[i+1][j] = 1
-                dfs(i+1)
-                sol[i+1][j] = 0
+
+        for col in range(1, N+1):   # 1 ~ N
+            if row == 0:
+                if N % 2 == 0 and row > N//2:
+                    break
+                sol[row + 1] = col
+                dfs(row + 1)
+                sol[row + 1] = 0
+
+            elif is_promising(sol, row+1, col):
+                sol[row + 1] = col
+                dfs(row + 1)
+                sol[row + 1] = 0
 
 
 N = int(input())
-N += 1
 count = 0
-sol = [[0] * N for i in range(N)]
+sol = [0] * (N+1)
 dfs(0)
 
-print(count)
+if N % 2 == 0:
+    print(count*2)
+else:
+    print(count)
