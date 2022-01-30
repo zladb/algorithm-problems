@@ -28,7 +28,7 @@ def dfs(i, val):
 
     else:
         for j in range(0, 4):
-            if operator[j] != 0 and i + 1 != num_len:
+            if operator[j] != 0:
                 if j == 0:
                     expression.append('+')
                 elif j == 1:
