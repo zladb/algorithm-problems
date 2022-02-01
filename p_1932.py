@@ -3,14 +3,16 @@
 n = int(input())
 tri = list()
 
-for i in range(n):
+for _ in range(n):
     tri.append(list(map(int, input().split())))
 
-for i in range(n-2, -1, -1):
-    for j in range(len(tri[i])):
-        if tri[i][j] + tri[i+1][j] >= tri[i][j] + tri[i+1][j+1]:
-            tri[i][j] += tri[i+1][j]
+for i in range(1, n):
+    for j in range(i+1):
+        if j == 0:
+            tri[i][j] += tri[i-1][j]
+        elif j == i:
+            tri[i][j] += tri[i-1][j-1]
         else:
-            tri[i][j] += tri[i+1][j+1]
+            tri[i][j] += max(tri[i-1][j-1], tri[i-1][j])
 
-print(tri[i][j])
+print(max(tri[n-1]))
