@@ -1,4 +1,4 @@
 # baekjoon-algorithm
 A repository for studying algorithm problems.
 (|:^)
-in jeju
+in jeju 3day
