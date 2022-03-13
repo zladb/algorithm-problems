@@ -2,4 +2,3 @@
 A repository for studying algorithm problems.
 (|:^)
 ..
-.
