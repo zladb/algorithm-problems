@@ -16,27 +16,29 @@ for _ in range(M):
     elif u not in graph[v]:
         graph[v].append(u)
 
+for K in graph:
+    graph[K].sort()
+
 
 def dfs(root):
-    visited = []
+    cnt = 1
+    visited = {}
     stack = [root]
-
-    if root not in graph:
-        print(0)
-        return 0
 
     while stack:
         pop = stack.pop()
         if pop not in visited:
-            visited.append(pop)
-            print(pop)
+            visited[pop] = cnt
+            cnt += 1
 
             if pop in graph:
-                temp = list(set(graph[pop]) - set(visited))
-                temp.sort(reverse=True)
-                stack.extend(temp)
+                stack.extend(reversed(graph[pop]))
 
-    print(0)
+    for i in range(1, N+1):
+        if i in visited:
+            print(visited[i])
+        else:
+            print(0)
 
 
 dfs(R)
