@@ -1,6 +1,8 @@
 # 1012 - 유기농 배추
 
 from pprint import pprint
+import sys
+sys.setrecursionlimit(10**9)
 
 # 테스트 케이스 개수
 T = int(input())
@@ -11,24 +13,10 @@ def check(x, y):
         if field[x][y] == 1:
             field[x][y] = 0
 
-            # if x+1 <= N-1 and field[x+1][y] == 1:
-            #     check(x + 1, y)  # right
-            #
-            # if y+1 <= M-1 and field[x][y+1] == 1:
-            #     check(x, y + 1)  # right
-            #
-            # if x-1 >= 0 and field[x-1][y] == 1:
-            #     check(x - 1, y)  # right
-            #
-            # if y-1 >= 0 and field[x][y-1] == 1:
-            #     check(x, y-1)  # right
-
             check(x + 1, y)  # right
             check(x - 1, y)  # left
             check(x, y - 1)  # up
             check(x, y + 1)  # down
-    else:
-        return 0
 
 
 for _ in range(T):
