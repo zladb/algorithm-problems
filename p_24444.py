@@ -7,15 +7,15 @@ N, M, R = map(int, sys.stdin.readline().split())
 graph = {}
 
 for _ in range(M):
-    u, v = map(int, input().split())
+    u, v = map(int, sys.stdin.readline().split())
     if u not in graph:
         graph[u] = [v]
-    elif v not in graph[u]:
+    else:
         graph[u].append(v)
 
     if v not in graph:
         graph[v] = [u]
-    elif u not in graph[v]:
+    else:
         graph[v].append(u)
 
 for K in graph:
@@ -26,8 +26,7 @@ for K in graph:
 def bfs(root):
     cnt = 1
     visited = {}
-    queue = deque()
-    queue.append(root)
+    queue = deque([root])
 
     while queue:
         pop = queue.popleft()
@@ -36,8 +35,8 @@ def bfs(root):
             cnt += 1
 
             if pop in graph:
-                queue.extend(graph[pop])
-                # print(queue)
+                queue += graph[pop]
+
 
     # 출력
     for i in range(1, N+1):
