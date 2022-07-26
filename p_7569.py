@@ -5,16 +5,11 @@ from collections import deque
 
 m, n, h = map(int, sys.stdin.readline().split())
 
-tomato_map = [[] for depth in range(h)]
-for z in range(h):
-    for _ in range(n):
-        tomato_map[z].append(list(map(int, sys.stdin.readline().split())))
+tomato_map = [[list(map(int, sys.stdin.readline().split())) for _ in range(n)] for depth in range(h)]
 
-# print(tomato_map)
-
-dx = [1, -1, 0, 0]
-dy = [0, 0, -1, 1]
-dz = [-1, 1]
+dx = [1, -1, 0, 0, 0, 0]
+dy = [0, 0, -1, 1, 0, 0]
+dz = [0, 0, 0, 0, -1, 1]
 
 queue = deque()
 
@@ -23,42 +18,19 @@ def bfs():
     while queue:
         z, x, y = queue.popleft()
 
-        for k in range(4):
-            nx, ny = x + dx[k], y + dy[k]
-            if 0 <= nx < n and 0 <= ny < m and tomato_map[z][nx][ny] == 0:
-                tomato_map[z][nx][ny] = tomato_map[z][x][y] + 1
-                queue.append((z, nx, ny))
-
-        for k in range(2):
-            nz = z + dz[k]
-            if 0 <= nz < h and tomato_map[nz][x][y] == 0:
-                tomato_map[nz][x][y] = tomato_map[z][x][y] + 1
-                queue.append((nz, x, y))
+        for k in range(6):
+            nz, nx, ny = z + dz[k], x + dx[k], y + dy[k]
+            if 0 <= nx < n and 0 <= ny < m and 0 <= nz < h:
+                if tomato_map[nz][nx][ny] == 0:
+                    tomato_map[nz][nx][ny] = tomato_map[z][x][y] + 1
+                    queue.append((nz, nx, ny))
 
 
-z = 0
-i = -1
-while i < n:
-    i += 1
-    for j in range(m):
-        if tomato_map[z][i][j] == 1:
-            queue.append((z, i, j))
-    if i == n - 1:
-        z += 1
-        i = -1
-        if z == h:
-            break
-
-flag = True
-for tomato in tomato_map:
-    for t in tomato:
-        if 0 in t:
-            flag = False
-
-if flag:
-    print(0)
-    exit(0)
-
+for i in range(h):
+    for j in range(n):
+        for k in range(m):
+            if tomato_map[i][j][k] == 1:
+                queue.append((i, j, k))
 
 bfs()
 
@@ -68,11 +40,19 @@ bfs()
 
 max_day = 0
 
-for tomato in tomato_map:
-    for t in tomato:
-        if 0 in t:
-            max_day = 0
-            break
-        max_day = max(max_day, max(t))
+ans = False
 
-print(max_day - 1)
+for i in range(h):
+    for j in range(n):
+        for k in range(m):
+            if tomato_map[i][j][k] == 0:
+                ans = True
+
+            max_day = max(max_day, tomato_map[i][j][k])
+
+if ans:
+    print(-1)
+elif max_day == 1:
+    print(0)
+else:
+    print(max_day - 1)
